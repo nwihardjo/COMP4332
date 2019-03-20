@@ -8,7 +8,7 @@ For sentiment analysis tasks, data used is based on [Yelp Dataset Challenge](htt
 
 ## Content
 
-- [Tutorial_1](Tutorial\ 1\ Multi\ Layer\ Perceptron/): introduction and definition of Multi Layer Perceptron using Keras for sentiment analysis
-- [Tutorial_2](Tutorial\ 2\ Convolutional\ Neural\ Network/): creating CNN layers for prediction of image predictions on handwritten digit using MNIST data
-- [Tutorial_3](Tutorial\ 3\ Recurrent\ Neural\ Network/): LSTM networks definition for sentiment analysis
-- [Tutorial_4](Tutorial\ 4\ Convolutional\ Neural\ Network\ for\ Text/): using CNN architecture for sentiment analysis tasks
+- [Tutorial_1](https://github.com/nwihardjo/COMP4332/tree/master/Tutorial%201%20Multi%20Layer%20Perceptron): introduction and definition of Multi Layer Perceptron using Keras for sentiment analysis
+- [Tutorial_2](https://github.com/nwihardjo/COMP4332/tree/master/Tutorial%202%20Convolutional%20Neural%20Network): creating CNN layers for prediction of image predictions on handwritten digit using MNIST data
+- [Tutorial_3](https://github.com/nwihardjo/COMP4332/tree/master/Tutorial%203%20Recurrent%20Neural%20Network): LSTM networks definition for sentiment analysis
+- [Tutorial_4](https://github.com/nwihardjo/COMP4332/tree/master/Tutorial%204%20Convolutional%20Neural%20Network%20for%20Text): using CNN architecture for sentiment analysis tasks
