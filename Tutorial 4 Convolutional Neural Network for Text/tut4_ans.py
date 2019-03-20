@@ -8,8 +8,8 @@ from sklearn import random_projection
 from sklearn.metrics import accuracy_score
 from nltk.corpus import stopwords
 
-from keras.models import Sequential
-from keras.layers import Embedding, Dense, Dropout, LSTM
+from keras.models import Model
+from keras.layers import Embedding, Dense, Dropout, Conv2D, MaxPool2D, Concatenate, Input, Reshape, Flatten
 from keras.optimizers import SGD
 from keras import metrics
 
@@ -44,10 +44,9 @@ def get_sequence(data, seq_length, vocab_dict):
     data_matrix = np.zeros((len(data), seq_length), dtype=int)
     for i, doc in enumerate(data):
         for j, word in enumerate(doc):
-            # YOUR CODE HERE
             if j == seq_length:
                 break
-            word_idx = vocab_dict.get(word, 1)
+            word_idx = vocab_dict.get(word, 1) # 1 means the unknown word
             data_matrix[i, j] = word_idx
     return data_matrix
 
@@ -107,6 +106,12 @@ if __name__ == '__main__':
     hidden_size = 100
     batch_size = 100
     dropout_rate = 0.5
+    filters = 100
+    kernel_sizes = [3, 4, 5]
+    padding = 'valid'
+    activation = 'relu'
+    strides = 1
+    pool_size = 2
     learning_rate = 0.1
     total_epoch = 10
 
@@ -120,20 +125,43 @@ if __name__ == '__main__':
     output_size = K
 
     # New model
-    model = Sequential()
+    # YOUR CODE HERE
+    x = Input(shape=(input_length, ))
 
     # embedding layer and dropout
     # YOUR CODE HERE
-    model.add(Embedding(input_dim=input_size, output_dim=embedding_size, input_length=input_length))
-    model.add(Dropout(dropout_rate))
+    e = Embedding(input_dim=input_size, output_dim=embedding_size, input_length=input_length)(x)
+    e_d = Dropout(dropout_rate)(e)
 
-    # LSTM layer
+    # construct the sequence tensor for CNN
     # YOUR CODE HERE
-    model.add(LSTM(units=hidden_size))
+    e_d = Reshape((input_length, embedding_size, 1))(e_d)
+
+    # CNN layers
+    conv_blocks = []
+    for kernel_size in kernel_sizes:
+        # YOUR CODE HERE
+        conv = Conv2D(filters=filters, kernel_size=(kernel_size, embedding_size), padding=padding, activation=activation, strides=(strides, strides))(e_d)
+        maxpooling = MaxPool2D(pool_size=((input_length-kernel_size)//strides+1, 1))(conv)
+        faltten = Flatten()(maxpooling)
+        conv_blocks.append(faltten)
+
+    # concatenate CNN results
+    # YOUR CODE HERE
+    c = Concatenate()(conv_blocks) if len(kernel_sizes) > 1 else conv_blocks[0]
+    c_d = Dropout(dropout_rate)(c)
+
+    # dense layer
+    # YOUR CODE HERE
+    d = Dense(hidden_size, activation=activation)(c_d)
 
     # output layer
     # YOUR CODE HERE
-    model.add(Dense(K, activation='softmax'))
+    y = Dense(output_size, activation='softmax')(d)
+
+    # build your own model
+    # YOUR CODE HERE
+    model = Model(x, y)
 
     # SGD optimizer with momentum
     optimizer = SGD(lr=learning_rate, decay=1e-6, momentum=0.9, nesterov=True)
@@ -150,4 +178,4 @@ if __name__ == '__main__':
     print('Training Loss: {}\n Training Accuracy: {}\n'
           'Testng Loss: {}\n Testing accuracy: {}'.format(
               train_score[0], train_score[1],
-	      test_score[0], test_score[1]))
+              test_score[0], test_score[1]))
