@@ -13,3 +13,4 @@ For sentiment analysis tasks, data used is based on [Yelp Dataset Challenge](htt
 - [Tutorial_3](https://github.com/nwihardjo/COMP4332/tree/master/Tutorial%203%20Recurrent%20Neural%20Network): LSTM networks definition for sentiment analysis
 - [Tutorial_4](https://github.com/nwihardjo/COMP4332/tree/master/Tutorial%204%20Convolutional%20Neural%20Network%20for%20Text): using CNN architecture for sentiment analysis tasks
 - [Tutorial_5](https://github.com/nwihardjo/COMP4332/tree/master/Tutorial%205%20Graph%20Embedding): Graph embedding using Random Walk and Node2Vec
+- [Tutorial_6](https://github.com/nwihardjo/COMP4332/tree/master/Tutorial%206%20Graph%20Attention%20Network): Network Embedding using Graph Attention Network
